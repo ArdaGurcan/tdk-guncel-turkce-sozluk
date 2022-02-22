@@ -14,7 +14,7 @@ for i in range(SIZE):
     json.dump(response.json()[0], file, indent=4)
 
     if i % 10 == 0:
-        print(f"{i/924.10:.2f}% {response.json()[0]['madde']}")
+        print(f"{i / SIZE * 100:.2f}% {response.json()[0]['madde']}")
         
         if i % 1000:
             file.close()
