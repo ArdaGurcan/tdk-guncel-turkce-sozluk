@@ -4,12 +4,23 @@ import json
 # 22 Şubat 2022 tarihinde 92410 madde içeriyordu
 url = 'https://sozluk.gov.tr/gts_id'
 
-sozluk = []
+SIZE = 92410
 
-for i in range(92410):
+file = open('gtk.json', 'a')
+file.write("[\n")
+
+for i in range(SIZE - 40, SIZE):
     response = requests.get(url, {'id': i + 1})
-    sozluk.append(response.json()[0])
-    print(f"{i / 924.10:.3f}% {response.json()[0]['madde']}")
+    json.dump(response.json()[0], file, indent=4)
 
-with open('gtk.json', 'w') as outfile: # gtk.json dosyasına yazdır
-    json.dump(sozluk, outfile, indent=4)
+    if i % 10 == 0:
+        print(f"{i/924.10:.2f}% {response.json()[0]['madde']}")
+        
+        if i % 1000:
+            file.close()
+            file = open('gtk.json', 'a')
+
+    if i != SIZE - 1:
+        file.write(',\n')
+
+file.write("\n]")
