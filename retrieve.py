@@ -9,7 +9,7 @@ SIZE = 92410
 file = open('gtk.json', 'a')
 file.write("[\n")
 
-for i in range(SIZE - 40, SIZE):
+for i in range(SIZE):
     response = requests.get(url, {'id': i + 1})
     json.dump(response.json()[0], file, indent=4)
 
