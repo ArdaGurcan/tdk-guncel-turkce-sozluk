@@ -7,13 +7,13 @@ url = 'https://sozluk.gov.tr/gts_id'
 SIZE = 92410
 
 file = open('gtk.json', 'a')
-file.write("[\n")
+file.write("[")
 
 for i in range(SIZE):
     response = requests.get(url, {'id': i + 1})
-    json.dump(response.json()[0], file, indent=4)
+    json.dump(response.json()[0], file)
 
-    if i % 10 == 0:
+    if i % 100 == 0:
         print(f"{i / SIZE * 100:.2f}% {response.json()[0]['madde']}")
         
         if i % 1000:
@@ -21,6 +21,6 @@ for i in range(SIZE):
             file = open('gtk.json', 'a')
 
     if i != SIZE - 1:
-        file.write(',\n')
+        file.write(',')
 
-file.write("\n]")
+file.write("]")
